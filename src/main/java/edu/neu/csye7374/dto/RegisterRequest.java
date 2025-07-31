@@ -1,6 +1,8 @@
 package edu.neu.csye7374.dto;
 
+import lombok.Data;
 
+@Data
 
 public class RegisterRequest {
     private String email;

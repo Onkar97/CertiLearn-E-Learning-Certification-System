@@ -6,7 +6,6 @@ import lombok.*;
 @Entity
 @Table(name = "app_users")
 @Data
-@Table(name = "app_user")
 public class User {
     @Id
     @GeneratedValue
