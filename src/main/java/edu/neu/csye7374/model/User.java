@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
+@Table(name = "app_users")
 @Data
 public class User {
     @Id
@@ -13,4 +14,6 @@ public class User {
     private String name;
     private String email;
     private String role; // STUDENT, INSTRUCTOR
+    private String password;
+
 }
