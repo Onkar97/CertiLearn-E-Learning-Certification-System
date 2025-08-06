@@ -6,7 +6,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 @RestController@RequestMapping("/api/grades")
 @RequiredArgsConstructor
-public class GradeController {
+public class GradeController
+{
     private final GradeRepository gradeRepository;
     @PostMapping
     public Grade giveGrade(@RequestBody Grade grade) {
