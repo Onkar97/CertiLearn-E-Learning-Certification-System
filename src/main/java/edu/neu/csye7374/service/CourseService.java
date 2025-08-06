@@ -9,6 +9,7 @@ import edu.neu.csye7374.singleton.CertificateGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.io.ByteArrayOutputStream;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -33,7 +34,9 @@ public class CourseService {
         cert.setFilePath(filePath);
         certificateRepository.save(cert);
 
-        CertificateGenerator.getInstance().generateCertificate(filePath, user.getName(), course.getTitle());
+        ByteArrayOutputStream baos = new ByteArrayOutputStream();
+        CertificateGenerator.getInstance().generateCertificate(user.getName(), course.getTitle(), baos);
+
 
         return cert;
     }
