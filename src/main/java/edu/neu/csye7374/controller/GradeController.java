@@ -12,4 +12,5 @@ public class GradeController {
     public Grade giveGrade(@RequestBody Grade grade) {
         return gradeRepository.save(grade);
     }
+
 }
