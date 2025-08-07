@@ -2,9 +2,9 @@ package edu.neu.csye7374.service;
 
 import edu.neu.csye7374.model.Course;
 import edu.neu.csye7374.model.User;
-import edu.neu.csye7374.model.Certificate;
+import edu.neu.csye7374.model.UserCourse;
 import edu.neu.csye7374.repository.CourseRepository;
-import edu.neu.csye7374.repository.CertificateRepository;
+import edu.neu.csye7374.repository.UserCourseRepository;
 import edu.neu.csye7374.singleton.CertificateGenerator;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -17,24 +17,29 @@ import java.util.List;
 public class CourseService {
 
     private final CourseRepository courseRepository;
-    private final CertificateRepository certificateRepository;
+    private final UserCourseRepository userCourseRepository;
 
     public List<Course> getAllCourses() {
         return courseRepository.findAll();
     }
 
-    public Certificate issueCertificate(User user, Course course) throws Exception {
-        Certificate cert = new Certificate();
-        cert.setUser(user);
-        cert.setCourse(course);
-        cert.setIssueDate(LocalDate.now());
+    public Course addCourse(Course course) {
+        return courseRepository.save(course);
+    }
 
-        String filePath = "certificates/" + user.getId() + "_" + course.getId() + ".pdf";
-        cert.setFilePath(filePath);
-        certificateRepository.save(cert);
+    public void enrollInCourse(Long userId, Long courseId) {
+        User user = new User();
+        user.setId(userId);
+        Course course = new Course();
+        course.setId(courseId);
 
-        CertificateGenerator.getInstance().generateCertificate(filePath, user.getName(), course.getTitle());
+        UserCourse userCourse = new UserCourse();
+        userCourse.setUser(user);
+        userCourse.setCourse(course);
+        userCourseRepository.save(userCourse);
+    }
 
-        return cert;
+    public void dropCourse(Long userId, Long courseId) {
+        userCourseRepository.findByUserIdAndCourseId(userId, courseId).ifPresent(userCourseRepository::delete);
     }
 }

@@ -5,16 +5,16 @@ import lombok.Data;
 
 @Entity
 @Data
-public class Grade {
+public class UserCourse {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    private User student;
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne
+    @JoinColumn(name = "course_id")
     private Course course;
-
-    private String grade;
 }
