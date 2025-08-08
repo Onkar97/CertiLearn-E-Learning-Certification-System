@@ -40,9 +40,10 @@ public class SecurityConfig {
                         .requestMatchers("/api/auth/**", "/api/courses/**", "/api/grades/**", "/api/courses/drop/**").permitAll()
                         .anyRequest().authenticated()
                 )
+
                 .sessionManagement(sess -> sess.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtRequestFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
