@@ -12,7 +12,9 @@ public class CertificateService {
 
     @Autowired
     private CertificateRepository certificateRepository;
-
+    public Certificate saveCertificate(Certificate certificate) {
+        return certificateRepository.save(certificate);
+    }
     public Optional<Certificate> getCertificateById(Long id) {
         return certificateRepository.findById(id);
     }

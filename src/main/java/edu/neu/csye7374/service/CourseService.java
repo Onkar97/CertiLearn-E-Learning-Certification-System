@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -41,5 +42,8 @@ public class CourseService {
 
     public void dropCourse(Long userId, Long courseId) {
         userCourseRepository.findByUserIdAndCourseId(userId, courseId).ifPresent(userCourseRepository::delete);
+    }
+    public Optional<Course> getCourseById(Long id) {
+        return courseRepository.findById(id);
     }
 }
