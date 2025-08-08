@@ -39,25 +39,6 @@ public class CertificateController {
         return certificate.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
-    @GetMapping("/download/{id}")
-    public ResponseEntity<Resource> downloadCertificate(@PathVariable Long id) {
-        Optional<Certificate> certificateOptional = certificateService.getCertificateById(id);
-        if (certificateOptional.isPresent()) {
-            Certificate certificate = certificateOptional.get();
-            Path path = Paths.get(certificate.getFilePath());
-            Resource resource = null;
-            try {
-                resource = new UrlResource(path.toUri());
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-            return ResponseEntity.ok()
-                    .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
-                    .body(resource);
-        } else {
-            return ResponseEntity.notFound().build();
-        }
-    }
     @PostMapping("/create")
     public ResponseEntity<Certificate> createCertificate(@RequestBody CertificateRequest request) {
         // You need to get User and Course entities by their IDs
