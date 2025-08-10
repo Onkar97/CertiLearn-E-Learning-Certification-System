@@ -44,8 +44,7 @@ public class CertificateController {
         // You need to get User and Course entities by their IDs
         User user = userService.getUserById(request.getUserId())
                 .orElseThrow(() -> new RuntimeException("User not found"));
-        Course course = courseService.getCourseById(request.getCourseId())
-                .orElseThrow(() -> new RuntimeException("Course not found"));
+        Course course = courseService.getCourseById(request.getCourseId());
 
         Certificate certificate = new Certificate();
         certificate.setUser(user);

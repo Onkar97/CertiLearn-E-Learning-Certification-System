@@ -12,4 +12,8 @@ public class Course {
 
     private String title;
     private String description;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "instructor_id")
+    private User instructor;   // NEW: used to show instructor name and to scope instructor views
 }
